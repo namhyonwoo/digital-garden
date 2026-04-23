@@ -13,3 +13,11 @@ _includes/notes_graph.json
 
 # Obsidian config
 .obsidian/
+
+# Local Bundler config and installed gems
+.bundle/*
+!.bundle/config
+vendor/bundle/
+
+# macOS metadata
+.DS_Store

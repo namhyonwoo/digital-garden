@@ -1,0 +1,3 @@
+---
+BUNDLE_PATH: "/Users/namhyonwoo/.bundle/obsidian-publish"
+BUNDLE_BUILD__NOKOGIRI: "--use-system-libraries"

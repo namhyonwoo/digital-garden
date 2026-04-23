@@ -60,6 +60,7 @@ GEM
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    logger (1.7.0)
     mercenary (0.4.0)
     mini_portile2 (2.8.8)
     nokogiri (1.18.8)
@@ -90,8 +91,9 @@ PLATFORMS
 DEPENDENCIES
   jekyll (~> 4.4)
   jekyll-last-modified-at!
+  logger
   nokogiri
   webrick (~> 1.9)
 
 BUNDLED WITH
-   2.2.3
+  4.0.3
