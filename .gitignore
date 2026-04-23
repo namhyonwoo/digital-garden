@@ -21,3 +21,6 @@ vendor/bundle/
 
 # macOS metadata
 .DS_Store
+
+# Local Netlify folder
+.netlify
