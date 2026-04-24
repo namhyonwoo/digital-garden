@@ -1,3 +1,12 @@
 [build]
-  command = "bundle exec jekyll build --trace"
+  command = "bundle install && bundle exec jekyll build --trace"
   publish = "_site"
+
+[build.environment]
+  # .ruby-version 과 동일하게 고정
+  RUBY_VERSION = "3.2.1"
+  # 로컬 .bundle/config 의 nokogiri 시스템 라이브러리 옵션이 Netlify 에서 문제를 일으키므로 빈값으로 덮어씀
+  BUNDLE_BUILD__NOKOGIRI = ""
+  # 번들러가 프로젝트 내부 vendor/bundle 로 설치하도록 강제 (빌드 캐시 재사용에 유리)
+  BUNDLE_PATH = "vendor/bundle"
+  JEKYLL_ENV = "production"
