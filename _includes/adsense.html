@@ -1,0 +1,44 @@
+{% comment %}
+  Google AdSense 광고 슬롯 include
+  사용법:
+    {% include adsense.html slot="1234567890" position="header" %}
+    {% include adsense.html slot="1234567890" position="inline" %}
+    {% include adsense.html slot="1234567890" position="footer" %}
+
+  position:
+    header  — 헤더 직하단 (가로 배너)
+    inline  — 본문 중간 (반응형)
+    footer  — 푸터 상단
+
+  _config.yml 설정 예:
+    adsense:
+      client_id: ca-pub-0000000000000000
+      slots:
+        header: "1111111111"
+        inline: "2222222222"
+        footer: "3333333333"
+{% endcomment %}
+
+{% assign position = include.position | default: "inline" %}
+{% assign slot_id = include.slot %}
+{% if slot_id == nil and site.adsense.slots %}
+  {% assign slot_id = site.adsense.slots[position] %}
+{% endif %}
+
+{% if site.adsense.client_id and slot_id %}
+<div class="ad-slot ad-slot--{{ position }}">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="{{ site.adsense.client_id }}"
+       data-ad-slot="{{ slot_id }}"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+{% elsif jekyll.environment == "development" or site.adsense.show_placeholder %}
+<div class="ad-slot ad-slot--{{ position }}" aria-hidden="true">
+  <span class="ad-slot__label">광고 영역 — {{ position }}</span>
+</div>
+{% endif %}

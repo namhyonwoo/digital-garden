@@ -27,6 +27,20 @@ relative_permalinks: false
 plugins:
   - jekyll-last-modified-at
 
+# ------------------------------------------------------------
+# Google AdSense
+# ------------------------------------------------------------
+# 승인 후 client_id와 slots 를 채워주세요.
+# client_id 가 비어 있으면 실제 광고 스크립트는 로드되지 않습니다.
+# show_placeholder: true 로 두면 개발 중 광고 자리를 점선 박스로 미리 보여줍니다.
+adsense:
+  client_id:   ""          # 예: "ca-pub-0000000000000000"
+  show_placeholder: true   # 미승인/로컬 상태에서 자리표시만 보여주기
+  slots:
+    header: ""             # 예: "1111111111"
+    inline: ""
+    footer: ""
+
 sass:
   sass_dir:          _sass
   style:            :compressed

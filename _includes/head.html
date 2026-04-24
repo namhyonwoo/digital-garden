@@ -11,7 +11,28 @@
 
   <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
 
+  <!-- Pretendard (한글 + 영문 모던 산세리프) -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css"
+  >
+
   <link rel="stylesheet" href="{{ site.baseurl }}/styles.css">
+
+  {% comment %}
+    Google AdSense
+    _config.yml 의 adsense.client_id 를 설정하면 자동으로 로드됩니다.
+    예: adsense:
+          client_id: ca-pub-0000000000000000
+  {% endcomment %}
+  {% if site.adsense.client_id %}
+  <script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense.client_id }}"
+    crossorigin="anonymous"
+  ></script>
+  {% endif %}
 
   {% if page.excerpt %}
   <meta property="og:description" content="{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}"/>

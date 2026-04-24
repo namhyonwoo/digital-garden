@@ -1,1 +1,9 @@
-This is the footer. Include anything you'd like here, like a link to an <a class="internal-link" href="{{ site.baseurl }}/about">About</a> page.
+<div class="site-footer__inner">
+  {% include adsense.html position="footer" %}
+
+  <p>
+    © {{ site.time | date: "%Y" }} {{ site.title }}.
+    Built with <a href="https://jekyllrb.com/">Jekyll</a>
+    · <a class="internal-link" href="{{ site.baseurl }}/about">About</a>
+  </p>
+</div>

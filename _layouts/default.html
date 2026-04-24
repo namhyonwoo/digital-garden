@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   {% include head.html %}
   <body>
-    <nav>{% include nav.html %}</nav>
+    <header class="site-header">
+      {% include nav.html %}
+    </header>
+
+    {% comment %} 헤더 직하단 광고 {% endcomment %}
+    {% include adsense.html position="header" %}
+
     <div class="wrapper">
       <main>{{ content }}</main>
-      <footer>{% include footer.html %}</footer>
     </div>
+
+    <footer class="site-footer">
+      {% include footer.html %}
+    </footer>
 
     {% include link-previews.html wrapperQuerySelector="content" %}
   </body>

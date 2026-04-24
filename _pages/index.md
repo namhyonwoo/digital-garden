@@ -5,29 +5,26 @@ id: home
 permalink: /
 ---
 
-# Welcome! 🌱
+<section class="home-hero">
+  <h1>Welcome! 🌱</h1>
+  <p>
+    생각과 기록을 심어 가꾸는 디지털 가든입니다.
+    아래에서 최근 업데이트된 노트부터 둘러보세요.
+  </p>
+</section>
 
-<p style="padding: 3em 1em; background: #f5f7ff; border-radius: 4px;">
-  Take a look at <span style="font-weight: bold">[[Your first note]]</span> to get started on your exploration.
-</p>
+## 최근 업데이트된 노트
 
-This digital garden template is free, open-source, and [available on GitHub here](https://github.com/maximevaillancourt/digital-garden-jekyll-template).
-
-The easiest way to get started is to read this [step-by-step guide explaining how to set this up from scratch](https://maximevaillancourt.com/blog/setting-up-your-own-digital-garden-with-jekyll).
-
-<strong>Recently updated notes</strong>
-
-<ul>
+<ul class="post-list">
   {% assign recent_notes = site.notes | sort: "last_modified_at_timestamp" | reverse %}
-  {% for note in recent_notes limit: 5 %}
+  {% for note in recent_notes limit: 8 %}
     <li>
-      {{ note.last_modified_at | date: "%Y-%m-%d" }} — <a class="internal-link" href="{{ site.baseurl }}{{ note.url }}">{{ note.title }}</a>
+      <span class="post-list__date">{{ note.last_modified_at | date: "%Y-%m-%d" }}</span>
+      <a class="internal-link" href="{{ site.baseurl }}{{ note.url }}">{{ note.title }}</a>
     </li>
   {% endfor %}
 </ul>
 
-<style>
-  .wrapper {
-    max-width: 46em;
-  }
-</style>
+{% include adsense.html position="inline" %}
+
+이 디지털 가든은 오픈소스 [Jekyll 템플릿](https://github.com/maximevaillancourt/digital-garden-jekyll-template) 위에 모던 블로그 스타일을 얹어 꾸몄습니다.
