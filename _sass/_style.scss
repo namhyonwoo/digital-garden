@@ -416,18 +416,38 @@ tr:last-child td { border-bottom: 0; }
 }
 
 // ---------- Notes / Backlinks sidebar (note layout) ----------
+// 노트 상세 페이지에서는 wrapper 를 넓혀서 3컬럼(좌 네비 + 본문 + 우 백링크) 레이아웃
+@media (min-width: 1200px) {
+  .wrapper:has(#notes-entry-container) {
+    max-width: 78rem;
+  }
+}
+
 #notes-entry-container {
   display: grid;
   grid-gap: 2.5rem;
   grid-template-areas: "content" "side";
 
-  @media (min-width: 960px) {
+  // 태블릿 ~ 작은 노트북: 2컬럼 (본문 + 백링크)
+  @media (min-width: 960px) and (max-width: 1199px) {
     grid-template-columns: minmax(0, 3fr) minmax(220px, 1fr);
     grid-template-areas: "content side";
     grid-gap: 3rem;
   }
 
-  content { grid-area: content; min-width: 0; }
+  // PC (1200px+): 3컬럼 — 좌 목차 네비 + 본문(680px+) + 우 백링크
+  @media (min-width: 1200px) {
+    grid-template-columns: 200px minmax(680px, 1fr) 220px;
+    grid-template-areas: "nav content side";
+    grid-gap: 2.5rem;
+  }
+
+  content {
+    grid-area: content;
+    display: block;
+    min-width: 0;
+  }
+
   side {
     grid-area: side;
     display: block;
@@ -438,13 +458,105 @@ tr:last-child td { border-bottom: 0; }
 
     h3 {
       margin-top: 0;
-      font-size: 0.85rem;
+      font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--text-muted);
       padding-bottom: 0.5em;
+      margin-bottom: 0.8em;
       border-bottom: 1px solid var(--border-soft);
     }
+  }
+}
+
+// ---------- Left TOC navigation ----------
+.toc-nav {
+  grid-area: nav;
+  display: none;            // 모바일/태블릿에서는 숨김
+  font-size: 0.88em;
+  position: sticky;
+  top: 5.5rem;
+  align-self: start;
+  max-height: calc(100vh - 7rem);
+  overflow-y: auto;
+  padding-right: 0.5em;
+  scrollbar-width: thin;
+
+  // 스크롤바
+  &::-webkit-scrollbar { width: 6px; }
+  &::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+  }
+
+  @media (min-width: 1200px) {
+    display: block;
+  }
+
+  .toc-nav__section {
+    margin-bottom: 1.5em;
+
+    &:last-child { margin-bottom: 0; }
+  }
+
+  .toc-nav__title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin: 0 0 0.6em;
+    padding-bottom: 0.4em;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    margin: 0.05em 0;
+  }
+
+  a {
+    display: block;
+    padding: 0.35em 0.6em;
+    color: var(--text-soft);
+    border: 0;
+    border-radius: 6px;
+    line-height: 1.45;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: background 140ms ease, color 140ms ease;
+
+    &::after { content: ""; }
+    &:hover {
+      color: var(--accent) !important;
+      background: var(--accent-soft);
+    }
+
+    &.is-current {
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+      border-left: 3px solid var(--accent);
+      padding-left: calc(0.6em - 3px);
+    }
+  }
+
+  // 현재 문서 내 헤딩 목차
+  .toc-nav__headings {
+    li { margin: 0.1em 0; }
+    a {
+      font-size: 0.85em;
+      padding: 0.25em 0.6em;
+      color: var(--text-muted);
+      white-space: normal;
+    }
+    .toc-nav__h3 a { padding-left: 1.4em; font-size: 0.82em; }
   }
 }
 

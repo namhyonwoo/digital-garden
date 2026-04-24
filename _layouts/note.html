@@ -13,6 +13,34 @@ layout: default
   </header>
 
   <div id="notes-entry-container">
+    {% comment %} -------- 좌측 목차 네비게이션 -------- {% endcomment %}
+    <aside class="toc-nav" aria-label="노트 목차">
+      {% comment %} 현재 문서 내 섹션 (JS 가 런타임에 채움) {% endcomment %}
+      <div class="toc-nav__section toc-nav__section--onpage" hidden>
+        <h2 class="toc-nav__title">On this page</h2>
+        <ul class="toc-nav__headings" id="toc-nav-headings"></ul>
+      </div>
+
+      {% comment %} 사이트 전체 노트 목록 (최근 업데이트 순) {% endcomment %}
+      <div class="toc-nav__section">
+        <h2 class="toc-nav__title">All notes</h2>
+        <ul>
+          {% assign all_notes = site.notes | sort: "last_modified_at_timestamp" | reverse %}
+          {% for note in all_notes %}
+            {% assign is_current = false %}
+            {% if note.url == page.url %}{% assign is_current = true %}{% endif %}
+            <li>
+              <a
+                class="internal-link{% if is_current %} is-current{% endif %}"
+                href="{{ site.baseurl }}{{ note.url }}{%- if site.use_html_extension -%}.html{%- endif -%}"
+                title="{{ note.title }}"
+              >{{ note.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </aside>
+
     <content>
       {{ content }}
 
@@ -47,3 +75,59 @@ layout: default
 </p>
 
 {% include notes_graph.html %}
+
+<script>
+  // 현재 문서의 h2/h3 헤딩을 좌측 TOC 에 동적으로 렌더링
+  (function () {
+    var headings = document.querySelectorAll('content h2, content h3');
+    if (!headings.length) return;
+
+    var list = document.getElementById('toc-nav-headings');
+    var section = document.querySelector('.toc-nav__section--onpage');
+    if (!list || !section) return;
+
+    var slugify = function (text) {
+      return text
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s가-힣-]/g, '')
+        .replace(/\s+/g, '-');
+    };
+
+    var frag = document.createDocumentFragment();
+    headings.forEach(function (h) {
+      if (!h.id) h.id = slugify(h.textContent);
+      var li = document.createElement('li');
+      if (h.tagName === 'H3') li.className = 'toc-nav__h3';
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent;
+      a.className = 'internal-link';
+      li.appendChild(a);
+      frag.appendChild(li);
+    });
+
+    list.appendChild(frag);
+    section.removeAttribute('hidden');
+
+    // 스크롤 스파이 — 현재 보이는 헤딩 강조
+    var links = list.querySelectorAll('a');
+    var linkById = {};
+    links.forEach(function (a) { linkById[a.getAttribute('href').slice(1)] = a; });
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          var a = linkById[entry.target.id];
+          if (!a) return;
+          if (entry.isIntersecting) {
+            links.forEach(function (l) { l.classList.remove('is-current'); });
+            a.classList.add('is-current');
+          }
+        });
+      }, { rootMargin: '-80px 0px -70% 0px' });
+
+      headings.forEach(function (h) { observer.observe(h); });
+    }
+  })();
+</script>
