@@ -1,6 +1,15 @@
 ---
 title: 해외배송 통합 설계 — 어드민 메뉴 구성 및 배송 플로우
 permalink: /overseas-shipping-design
+tags:
+  - backend
+  - commerce
+  - architecture
+  - overseas-shipping
+  - admin
+aliases:
+  - shipping design
+  - 해외배송 설계
 ---
 
 ## 배경

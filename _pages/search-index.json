@@ -1,0 +1,18 @@
+---
+layout: null
+permalink: /search-index.json
+---
+[
+  {% assign searchable_notes = site.notes | sort: "last_modified_at_timestamp" | reverse %}
+  {% for note in searchable_notes %}
+    {% assign note_title = note.title | default: note.basename_without_ext %}
+    {
+      "title": {{ note_title | jsonify }},
+      "url": {{ note.url | relative_url | jsonify }},
+      "tags": {{ note.tags | jsonify }},
+      "aliases": {{ note.aliases | jsonify }},
+      "excerpt": {{ note.content | markdownify | strip_html | strip_newlines | replace: "  ", " " | truncate: 180 | jsonify }},
+      "updated_at": {{ note.last_modified_at | date: "%Y-%m-%d" | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]

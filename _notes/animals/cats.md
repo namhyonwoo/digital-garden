@@ -1,5 +1,12 @@
 ---
 title: A note about cats
+tags:
+  - animals
+  - cats
+  - poem
+aliases:
+  - cat note
+  - feline
 ---
 
 This is a second note with a poem with cats. 

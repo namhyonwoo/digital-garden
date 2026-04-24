@@ -1,5 +1,12 @@
 ---
 title: Your first seed
+tags:
+  - guide
+  - jekyll
+  - digital-garden
+aliases:
+  - first note
+  - getting started
 ---
 
 ### Welcome!

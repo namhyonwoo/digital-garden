@@ -1,5 +1,12 @@
 ---
 title: Consistency is key
+tags:
+  - habits
+  - mindset
+  - productivity
+aliases:
+  - consistency
+  - discipline
 ---
 
 Show up. Do the work. Be consistent.

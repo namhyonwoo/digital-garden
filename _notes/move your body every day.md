@@ -1,4 +1,12 @@
 ---
+title: Move your body every day
+tags:
+  - health
+  - habits
+  - wellness
+aliases:
+  - exercise
+  - movement
 ---
 
 Move your body every day. Benefits include:
