@@ -25,7 +25,8 @@ module Jekyll
       stripped.gsub!(/`[^`]+`/, "")
 
       # 3. 마크다운 헤딩의 선행 # 제거 (## 제목 → 제목)
-      stripped.gsub!(/^[ \t]{0,3}#{1,6}[ \t]+/m, "")
+      # 주의: Ruby 정규식 안에서 `#{...}` 는 문자열 보간이므로 [#] 로 감싸야 함
+      stripped.gsub!(/^[ \t]{0,3}[#]{1,6}[ \t]+/m, "")
 
       stripped.scan(TAG_REGEX).flatten.uniq
     end
